@@ -26,12 +26,18 @@ export function useTerminal(containerRef: React.RefObject<HTMLDivElement | null>
     term.options.fontFamily = fontFamily
   }, [])
 
+  const resizeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const notifyResize = useCallback(() => {
     if (!fitAddonRef.current || !invokeRef.current) return
-    const dims = fitAddonRef.current.proposeDimensions()
-    if (dims) {
-      invokeRef.current('resize_pty', { rows: dims.rows, cols: dims.cols }).catch(() => {})
-    }
+    // Debounce — animation frames fire ResizeObserver rapidly, we only need the final size
+    if (resizeTimerRef.current) clearTimeout(resizeTimerRef.current)
+    resizeTimerRef.current = setTimeout(() => {
+      const dims = fitAddonRef.current?.proposeDimensions()
+      if (dims) {
+        invokeRef.current?.('resize_pty', { rows: dims.rows, cols: dims.cols }).catch(() => {})
+      }
+    }, 250)
   }, [])
 
   useEffect(() => {

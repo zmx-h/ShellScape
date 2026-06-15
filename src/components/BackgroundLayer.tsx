@@ -54,28 +54,30 @@ export function BackgroundLayer() {
     objectFit: background.fitMode === 'none' ? undefined : (background.fitMode as any),
     objectPosition,
     pointerEvents: 'none',
+    filter: 'brightness(0.45)',
   }
 
-  if (background.type === 'video') {
-    return (
+  const mediaEl =
+    background.type === 'video' ? (
       <video
         src={safeUrl}
-        autoPlay
-        loop
-        muted
-        playsInline
+        autoPlay loop muted playsInline
         style={commonStyle}
         onError={(e) => console.error('[bg] video error:', (e.target as HTMLVideoElement).src.substring(0, 80))}
       />
+    ) : (
+      <img
+        src={safeUrl}
+        alt="bg"
+        style={commonStyle}
+        onError={(e) => console.error('[bg] img error:', (e.target as HTMLImageElement).src.substring(0, 80))}
+      />
     )
-  }
 
   return (
-    <img
-      src={safeUrl}
-      alt="bg"
-      style={commonStyle}
-      onError={(e) => console.error('[bg] img error:', (e.target as HTMLImageElement).src.substring(0, 80))}
-    />
+    <>
+      {mediaEl}
+      <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+    </>
   )
 }
