@@ -54,7 +54,7 @@ export function BackgroundLayer() {
     objectFit: background.fitMode === 'none' ? undefined : (background.fitMode as any),
     objectPosition,
     pointerEvents: 'none',
-    filter: 'brightness(0.45)',
+    filter: 'brightness(0.5) contrast(1.2) saturate(2.5)',
   }
 
   const mediaEl =
@@ -77,7 +77,7 @@ export function BackgroundLayer() {
   return (
     <>
       {mediaEl}
-      <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/70 pointer-events-none" />
     </>
   )
 }
