@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# ShellScape
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight desktop terminal with custom backgrounds — images, videos, and GIFs. Built with Tauri 2 + React + xterm.js.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Custom backgrounds** — static images (PNG/JPG), videos (MP4/WebM), animated GIFs
+- **Auto-hiding UI** — toolbar and tab bar auto-hide like Windows taskbar; move mouse to edge to reveal
+- **Real terminal** — Powershell via ConPTY, with full input/output support
+- **Fill modes** — cover, contain, stretch, or center your background
+- **Opacity control** — adjust terminal transparency independently
+- **Color themes** — Dracula, Nord, One Dark, and more
+- **Keyboard shortcuts** — Alt to temporarily show UI, Ctrl+Shift+L to pin toolbar
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Layer | Technology |
+|-------|-----------|
+| Window / PTY | Tauri 2 (Rust) |
+| Frontend | React 19 + TypeScript |
+| Terminal | xterm.js 6 |
+| Styling | Tailwind CSS 4 + Framer Motion 12 |
+| State | Zustand 5 |
 
-## Expanding the ESLint configuration
+## Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Prerequisites
+# - Rust: https://rustup.rs
+# - Node.js 18+: https://nodejs.org
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Install dependencies
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Start dev server + Tauri window
+npm run tauri dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+npm run tauri build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## License
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+MIT
