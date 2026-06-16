@@ -24,18 +24,35 @@ A lightweight desktop terminal with custom backgrounds — images, videos, and G
 
 ## Development
 
+### Environment
+
+- **Rust** — https://rustup.rs
+- **Node.js** 18+ — https://nodejs.org
+- **macOS** / **Linux** / **Windows**
+
+### Setup
+
 ```bash
-# Prerequisites
-# - Rust: https://rustup.rs
-# - Node.js 18+: https://nodejs.org
-
-# Install dependencies
+git clone https://github.com/zmx-h/ShellScape.git
+cd ShellScape
 npm install
+```
 
-# Start dev server + Tauri window
+### Run (dev mode)
+
+```bash
 npm run tauri dev
+```
 
-# Build for production
+This starts both the Vite frontend dev server and the Tauri desktop window together.
+
+### Configure shell
+
+By default `powershell.exe` is used on Windows and `/bin/bash` on other platforms.  
+Edit `src-tauri/src/pty.rs` line 28–33 to change the shell.
+
+```bash
+# Build standalone installer
 npm run tauri build
 ```
 
